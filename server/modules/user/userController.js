@@ -122,7 +122,7 @@ function createLocalUser(req, resp, next) {
 function logOut(req,res,next){
        req.logout();
        req.session = null;
-       return res.sendStatus(200);
+       res.send(200);
     };
 
 function getUser(req, res, next) {
