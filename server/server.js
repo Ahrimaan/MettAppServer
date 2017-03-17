@@ -1,5 +1,8 @@
 var express = require('express');
 var session = require('express-session');
+var dotenv = require('dotenv');
+//Load local Config to env
+dotenv.config();
 var passport = require('passport');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -9,9 +12,7 @@ var adminRoleRoute = require('./modules/adminRole/adminRoleRoute');
 var socialProviderRoute = require('./modules/socialProvider/socialProviderRoute');
 var userRoute = require('./modules/user/userRoute');
 var mettRoute = require('./modules/mett/mettRoute');
-var dotenv = require('dotenv');
-//Load local Config to env
-dotenv.config();
+
 
 //Create API Server
 var server = express();

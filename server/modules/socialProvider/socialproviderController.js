@@ -5,7 +5,7 @@ let linkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 
 let cache = require('./../../cache');
 
-if (process.env.UseGoogle === true) {
+if (process.env.UseGoogle === 'true') {
     passport.use(new googleStrategy({
         clientID: process.env.Google_ClientId,
         clientSecret: process.env.Google_Secret,
@@ -13,7 +13,7 @@ if (process.env.UseGoogle === true) {
     }, oauthCallback));
 }
 
-if (process.env.UseAmazon === true) {
+if (process.env.UseAmazon === 'true') {
     passport.use(new amazonStrategy({
         clientID: process.env.Amazon_ClientId,
         clientSecret: process.env.Amazon_Secret,
