@@ -12,20 +12,26 @@ var adminRoleRoute = require('./modules/adminRole/adminRoleRoute');
 var socialProviderRoute = require('./modules/socialProvider/socialProviderRoute');
 var userRoute = require('./modules/user/userRoute');
 var mettRoute = require('./modules/mett/mettRoute');
-
+var mongo = database.startMongoServer();
+var MongoStore = require('connect-mongo')(session);
 
 //Create API Server
 var server = express();
 server.use(logger('dev'));
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
-server.use(session({ secret: 'huzasdfas899332hufsd0ß2#324!', resave: true, saveUninitialized: false }));
+server.use(session({
+    secret: 'huzasdfas899332hufsd0ß2#324!', resave: true, saveUninitialized: false,
+    store: new MongoStore({
+        url:process.env.MongoURL
+    })
+}));
 server.use(passport.initialize());
 server.use(passport.session());
 server.use(cookieParser());
 
 server.use(function (req, res, next) {
-        
+
     res.header("Access-Control-Allow-Origin", process.env.AllowedHost);
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type,Accept,access-control-allow-headers," +
         "access-control-allow-origin, user, Access-Control-Expose-Headers, Access-Control-Allow-Methods");
@@ -35,7 +41,7 @@ server.use(function (req, res, next) {
     next();
 });
 
-server.get('/',(req,resp,next) => {
+server.get('/', (req, resp, next) => {
     resp.send('WORKS');
 })
 
@@ -45,7 +51,7 @@ socialProviderRoute(server);
 userRoute(server);
 mettRoute(server);
 
-database.startMongoServer();
+
 
 
 server.listen(process.env.PORT || 3000, function (err) {

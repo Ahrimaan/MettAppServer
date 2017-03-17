@@ -9,5 +9,6 @@ module.exports = {
         mongoose.connection.on('error', function (err) {
             console.log('MongoDB error: %s', err);
         });
+        return mongoose;
     }
 }
