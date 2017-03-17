@@ -2,6 +2,10 @@
   "name": "MettAppServer",
   "version": "0.8.0",
   "private": true,
+  "engines": {
+    "node": "6.10",
+    "npm": "4.3.0"
+  },
   "scripts": {
     "start": "node server/server.js"
   },
@@ -12,7 +16,6 @@
     "dotenv": "^4.0.0",
     "express": "*",
     "express-session": "",
-    "guid": "0.0.12",
     "mongoose": "*",
     "morgan": "^1.7.0",
     "node-cache": "*",

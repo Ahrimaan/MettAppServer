@@ -1,5 +1,5 @@
 var mongo = require('mongoose');
-var GuidGen = require('Guid');
+var uuid = require('node-uuid');
 
 var Schema = mongo.Schema;
 
@@ -10,7 +10,7 @@ var authenticationSchema = new Schema({
 
 authenticationSchema.pre('save', function(next){
   self = this;
-  self.guid = GuidGen.create();
+  self.guid = uuid.v4();
   next();
 });
 
