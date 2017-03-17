@@ -21,7 +21,10 @@ server.use(logger('dev'));
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(session({
-    secret: 'huzasdfas899332hufsd0ß2#324!', resave: true, saveUninitialized: false,
+    secret: 'huzasdfas899332hufsd0ß2#324!',
+    resave: true,
+    saveUninitialized: false,
+    unset: 'destroy',
     store: new MongoStore({
         url:process.env.MongoURL
     })

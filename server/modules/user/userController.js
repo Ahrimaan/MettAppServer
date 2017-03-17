@@ -120,8 +120,8 @@ function createLocalUser(req, resp, next) {
 }
 
 function logOut(req,res,next){
-       req.logOut();
-       req.session.destroy();
+       req.logout();
+       req.session = null;
        return res.sendStatus(200);
     };
 
