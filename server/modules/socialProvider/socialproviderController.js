@@ -7,17 +7,17 @@ let cache = require('./../../cache');
 
 if (process.env.UseGoogle) {
     passport.use(new googleStrategy({
-        clientID: process.env.Google.ClientId,
-        clientSecret: process.env.Google.Secret,
-        callbackURL: process.env.Google.Callback
+        clientID: process.env.Google_ClientId,
+        clientSecret: process.env.Google_Secret,
+        callbackURL: process.env.Google_Callback
     }, oauthCallback));
 }
 
 if (process.env.UseAmazon) {
     passport.use(new amazonStrategy({
-        clientID: process.env.Amazon.ClientId,
-        clientSecret: process.env.Amazon.Secret,
-        callbackURL: process.env.Amazon.Callback
+        clientID: process.env.Amazon_ClientId,
+        clientSecret: process.env.Amazon_Secret,
+        callbackURL: process.env.Amazon_Callback
     }, oauthCallback));
 }
 
