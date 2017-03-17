@@ -34,6 +34,10 @@ server.use(function (req, res, next) {
     next();
 });
 
+server.get('/',(req,resp,next) => {
+    resp.send('WORKS');
+})
+
 // Here comes all the routes
 adminRoleRoute(server);
 socialProviderRoute(server);
@@ -43,11 +47,11 @@ mettRoute(server);
 database.startMongoServer();
 
 
-server.listen(process.env.ServerPort, function (err) {
+server.listen(process.env.PORT || 3000, function (err) {
     if (err)
         console.error(err)
     else
-        console.log('server listen to port : ' + process.env.ServerPort)
+        console.log('server listen to port : ' + process.env.PORT || 3000)
 });
 
 process.on('uncaughtException', function (err) {
