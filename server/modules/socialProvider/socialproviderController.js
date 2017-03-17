@@ -4,25 +4,24 @@ let amazonStrategy = require('passport-amazon').Strategy;
 let linkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 
 let cache = require('./../../cache');
-let config = require('./../../configuration');
 
-if (config.authentication.google.use) {
+if (process.env.UseGoogle) {
     passport.use(new googleStrategy({
-        clientID: config.authentication.google.clientId,
-        clientSecret: config.authentication.google.secret,
-        callbackURL: config.authentication.google.callbackUrl
+        clientID: process.env.Google.ClientId,
+        clientSecret: process.env.Google.Secret,
+        callbackURL: process.env.Google.Callback
     }, oauthCallback));
 }
 
-if (config.authentication.amazon.use) {
+if (process.env.UseAmazon) {
     passport.use(new amazonStrategy({
-        clientID: config.authentication.amazon.clientId,
-        clientSecret: config.authentication.amazon.secret,
-        callbackURL: config.authentication.amazon.callbackUrl
+        clientID: process.env.Amazon.ClientId,
+        clientSecret: process.env.Amazon.Secret,
+        callbackURL: process.env.Amazon.Callback
     }, oauthCallback));
 }
 
-if (config.authentication.linkedin.use) {
+/* if (config.authentication.linkedin.use) {
     passport.use(new linkedInStrategy({
         authorizationURL: 'https://www.linkedin.com/oauth/v2/authorization',
         tokenURL: 'https://www.linkedin.com/oauth/v2/accessToken',
@@ -32,7 +31,7 @@ if (config.authentication.linkedin.use) {
         scope: ['r_basicprofile', 'r_emailaddress'],
         passReqToCallback: false
     }, linkedInCallback));
-}
+} */
 
 function authGoogle(req, res, next) {
     passport.authenticate('google',

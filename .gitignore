@@ -15,7 +15,8 @@
 *.launch
 .settings/
 .idea
-
+*.env
+.env
 # misc
 /.sass-cache
 /connect.lock
