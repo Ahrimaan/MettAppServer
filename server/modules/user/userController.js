@@ -111,7 +111,7 @@ function createLocalUser(req, resp, next) {
                     resp.status = 500;
                     resp.send(err);
                 }
-                mail.SendMailToUser(user,authReq.guid);
+                mail.SendMailToUser(user.id ,authReq.guid);
                 return resp.send(200);
             });
         });

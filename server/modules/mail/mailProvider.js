@@ -1,6 +1,6 @@
 var helper = require('sendgrid').mail;
 
-/* exports.SendMailToUser = (userMail, guid) => {
+exports.SendMailToUser = (userMail, guid) => {
     var from_email = new helper.Email('webmaster@black-mesa.de');
     var to_email = new helper.Email(userMail);
     var subject = 'Account Activation';
@@ -21,9 +21,9 @@ var helper = require('sendgrid').mail;
         console.log(response.headers);
     });
 
-} */
+} 
 
-exports.SendMailToUser = (user, guid) => {
+/*exports.SendMailToUser = (user, guid) => {
     var from_email = new helper.Email('webmaster@black-mesa.de');
     var to_email = new helper.Email('webmaster@black-mesa.de');
     var subject = 'Account Activation';
@@ -43,5 +43,5 @@ exports.SendMailToUser = (user, guid) => {
         console.log(response.headers);
     });
 
-}
+} */
 
