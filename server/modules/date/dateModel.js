@@ -11,7 +11,7 @@ var participant = new Schema({
     specialNeeds:String
 })
 
-var mettSchema = new Schema({
+var dateSchema = new Schema({
     id: String,
     date:Date,
     createdBy:String,
@@ -19,9 +19,9 @@ var mettSchema = new Schema({
     participants:[participant]
 });
 
-mettSchema.pre('save', function (next) {
-   var mett = this;
-   mett.created = new Date();
+dateSchema.pre('save', function (next) {
+   var date = this;
+   date.created = new Date();
    next();
 });
 
@@ -31,4 +31,4 @@ participant.pre('save',next => {
     next();
 })
 
-module.exports = mongo.model('mettAppointment', mettSchema);
+module.exports = mongo.model('date', dateSchema);

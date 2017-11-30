@@ -1,10 +1,57 @@
-var mettModel = require('./mettModel');
-let userModel = require('./../user/userModel');
+'use strict';
 
-//Create a Mett Appointment
-exports.createMett = function (req, resp, next) {
-    checkMettAppointmentExist(req.body.date, req, resp);
-};
+var dateModel = require('./dateModel');
+
+const postDate = (req,res) => {
+    checkDateExist(req.body.date).then(() => {
+        createDate.then((result) => {
+            return res.send(result);
+        }).catch(() => {
+            return res.send(500);
+        });
+    }).catch((err) => {
+        console.log(err);
+        return res.send(304);
+    })
+}
+
+const getDates = (req,res) => {
+    let query = dateModel.find({ "date": { $gte: new Date() } }).sort({ date: 1 }).exec();
+    query.then((result) => {
+       return res.send(result);
+    }).catch((err) => {
+        console.log(err);
+        return res.send(500);
+    });
+}
+
+exports.getDates = getDates;
+exports.postDate = postDate;
+
+const checkDateExist = (date) => {
+    const promise = new Promise((resolve,reject) => {
+        const findPromise =  dateModel.find({ date: mettDate }).exec();
+        findPromise.then(resolve()).catch(reject());
+    });
+
+    return promise;
+}
+
+const createDate = (date,createdBy) => {
+    const promise = new Promise((resolve,reject) => {
+        var model = new dateModel();
+        model.date = date;
+        model.createdBy = createdBy;
+        model.save((err, newItem) => {
+            if (err) {
+                console.log(err);
+                return reject(err);
+            }
+            model.id = newItem._id;
+            return resolve(model);
+        });
+    });
+}
 
 // Get all Appointments
 exports.getAll = function (req, res, next) {

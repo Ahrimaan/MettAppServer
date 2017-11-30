@@ -1,21 +1,10 @@
-/**
- * Created by Ahrimaan on 07.01.2017.
- */
+const mongo = require('mongoose');
+const Schema = mongo.Schema;
 
-var mongo = require('mongoose');
-var Schema = mongo.Schema;
-
-var userSchema = new Schema({
-    id: String,
-    fullName:String,
-    created:Date,
-    isSocial:Boolean,
-    email: String,
-    passwordHash:String,
-    avatarUrl:String,
-    isActivated:Boolean
+const userSchema = new Schema({
+    userId:String,
+    userName:String,
+    mandateId:{type: mongo.Schema.Types.ObjectId, ref: 'mandates'}
 });
 
 module.exports = mongo.model('user', userSchema);
-
-

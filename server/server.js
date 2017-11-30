@@ -1,40 +1,25 @@
 var express = require('express');
-var session = require('express-session');
+var expressSession = require('express-session');
 var dotenv = require('dotenv');
 //Load local Config to env
 dotenv.config();
-var passport = require('passport');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var database = require('./database/mongoStartup');
-var adminRoleRoute = require('./modules/adminRole/adminRoleRoute');
-var socialProviderRoute = require('./modules/socialProvider/socialProviderRoute');
-var userRoute = require('./modules/user/userRoute');
-var mettRoute = require('./modules/mett/mettRoute');
+var dateRoutes = require('./modules/date/dateRoutes');
+var userRoutes = require('./modules/user/userRoutes');
+var mandateRoutes = require('./modules/mandates/mandateRoutes');
 var mongo = database.startMongoServer();
-var MongoStore = require('connect-mongo')(session);
 
 //Create API Server
 var server = express();
 server.use(logger('dev'));
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
-server.use(session({
-    secret: 'huzasdfas899332hufsd0ß2#324!',
-    resave: true,
-    saveUninitialized: false,
-    unset: 'destroy',
-    store: new MongoStore({
-        url:process.env.MongoURL
-    })
-}));
-server.use(passport.initialize());
-server.use(passport.session());
 server.use(cookieParser());
 
 server.use(function (req, res, next) {
-
     res.header("Access-Control-Allow-Origin", process.env.AllowedHost);
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type,Accept,access-control-allow-headers," +
         "access-control-allow-origin, user, Access-Control-Expose-Headers, Access-Control-Allow-Methods");
@@ -47,15 +32,9 @@ server.use(function (req, res, next) {
 server.get('/', (req, resp, next) => {
     resp.send('WORKS');
 })
-
-// Here comes all the routes
-adminRoleRoute(server);
-socialProviderRoute(server);
-userRoute(server);
-mettRoute(server);
-
-
-
+dateRoutes.registerRoutes(server);
+userRoutes.registerRoutes(server);
+mandateRoutes.registerRoutes(server);
 
 server.listen(process.env.PORT || 3000, function (err) {
     if (err)
