@@ -9,7 +9,7 @@ const getUserInformation = (req,res) => {
             return res.send(result);
         }
         else{
-            createUser(req.body.userId, req.body.userName).then((user) => {
+            createUser(req.body.userId, req.body.userName,req.body.email).then((user) => {
                 return res.send(user);
             }).catch((err) => {
                 res.status(500);
@@ -37,11 +37,12 @@ const addUserToMandate = (req,res) => {
 exports.getUserInformation = getUserInformation;
 exports.changeMandate = addUserToMandate;
 
-const createUser = (userId,userName) => {
+const createUser = (userId,userName,mail) => {
     return new Promise((resolve,reject) => {
         userModel.create({
             userId:userId,
-            userName:userName
+            userName:userName,
+            mail:mail
         },(err,model) => {
                 if(err){
                      return reject(err);

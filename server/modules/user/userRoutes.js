@@ -1,8 +1,9 @@
 var controller = require('./userController');
+let tokenMiddleware = require('../checkTokenMiddleware');
 
 const registerRoutes = (expressServer) => {
-    expressServer.post('/user', controller.getUserInformation);
-    expressServer.patch('/user',controller.changeMandate);
+    expressServer.get('/user',tokenMiddleware.validateToken, controller.getUserInformation);
+    expressServer.patch('/user',tokenMiddleware.validateToken, controller.changeMandate);
 }
 
 exports.registerRoutes = registerRoutes;

@@ -55,7 +55,7 @@ const createDate = (date,createdBy) => {
 
 // Get all Appointments
 exports.getAll = function (req, res, next) {
-    mettModel.find({ "date": { $gte: new Date() } }).sort({ date: 1 }).exec(
+    dateModel.find({ "date": { $gte: new Date() } }).sort({ date: 1 }).exec(
         (err, result) => {
             if (err) {
                 console.log(err);

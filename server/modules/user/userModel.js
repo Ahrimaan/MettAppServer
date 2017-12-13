@@ -4,6 +4,7 @@ const Schema = mongo.Schema;
 const userSchema = new Schema({
     userId:String,
     userName:String,
+    mail:String,
     mandateId:{type: mongo.Schema.Types.ObjectId, ref: 'mandates'}
 });
 
